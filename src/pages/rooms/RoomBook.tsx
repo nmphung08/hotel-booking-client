@@ -22,15 +22,15 @@ let defaultBookingInfo = {
 };
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  "border-radius": "8px",
 };
 
 export default function RoomBook() {
@@ -61,152 +61,200 @@ export default function RoomBook() {
   }
 
   return (
-    <div className="flex flex-row flex-wrap items-center justify-center w-4/5 gap-4 m-auto">
-      <div className="w-1/4">
-        <img src={`data:image;base64,${room?.photo}`} title="Room photo" />
-      </div>
+    <div className="below-navbar pt-8 min-h-[100vh] mx-auto w-4/5 text-center">
+      <div className="text-3xl font-semibold">Room Reservation</div>
 
-      <div className="w-1/4">
-        <div>Reserve Room</div>
-
-        <TextField
-          label="Name"
-          type="text"
-          name="owner"
-          value={bookingInfo.owner}
-          onChange={(e) => {
-            return onInfoChange(e.target.name, e.target.value);
-          }}
-        />
-
-        <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Check-in Date"
-              name="checkIn"
-              value={bookingInfo.checkInDate}
-              onChange={(date) => {
-                return onInfoChange("checkInDate", date);
-              }}
-              className="mr-4"
-            />
-
-            <DatePicker
-              label="Check-out Date"
-              name="checkOut"
-              value={bookingInfo.checkOutDate}
-              onChange={(date) => {
-                return onInfoChange("checkOutDate", date);
-              }}
-              className="mr-4"
-            />
-          </LocalizationProvider>
+      <div className="flex flex-row flex-wrap justify-center gap-10 mt-8">
+        <div className="w-1/4">
+          <img
+            src={`data:image;base64,${room?.photo}`}
+            title="Room photo"
+            className="rounded-lg"
+          />
         </div>
 
-        <div>
+        <div className="w-1/4">
           <TextField
-            label="Adults"
-            type="number"
-            name="adults"
-            value={bookingInfo.adults}
+            label="Name"
+            type="text"
+            name="owner"
+            value={bookingInfo.owner}
+            sx={{
+              width: "100%",
+            }}
             onChange={(e) => {
               return onInfoChange(e.target.name, e.target.value);
             }}
           />
 
-          <TextField
-            label="Children"
-            type="number"
-            name="children"
-            value={bookingInfo.children}
-            onChange={(e) => {
-              return onInfoChange(e.target.name, e.target.value);
-            }}
-          />
+          <div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Check-in Date"
+                name="checkIn"
+                value={bookingInfo.checkInDate}
+                sx={{
+                  width: "100%",
+                  marginTop: "1rem",
+                }}
+                onChange={(date) => {
+                  return onInfoChange("checkInDate", date);
+                }}
+              />
 
-          <Button variant="contained" className="mr-4" onClick={onContinue}>
-            Continue
-          </Button>
-
-          <Modal
-            open={open}
-            onClose={onModalClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <div>Reservation Summary</div>
-
-              <div>Name: {bookingInfo?.owner}</div>
-
-              <div>
-                Check-in Date: {bookingInfo?.checkInDate?.format("DD/MM/YYYY")}
-              </div>
-              <div>
-                Check-out Date: {bookingInfo.checkOutDate?.format("DD/MM/YYYY")}
-              </div>
-
-              <div>Numbers of dates booked: {2}</div>
-
-              <div>Number of guest</div>
-              <div>Adults: {bookingInfo?.adults}</div>
-              <div>Children: {bookingInfo?.children}</div>
-
-              <div>Total payment: ${200}</div>
-
-              <Button
-                variant="contained"
+              <DatePicker
+                label="Check-out Date"
+                name="checkOut"
+                value={bookingInfo.checkOutDate}
+                sx={{
+                  width: "100%",
+                  marginTop: "1rem",
+                }}
+                onChange={(date) => {
+                  return onInfoChange("checkOutDate", date);
+                }}
                 className="mr-4"
-                onClick={confirmBooking}
-              >
-                Confirm Booking and proceed to payment
-              </Button>
-            </Box>
-          </Modal>
-        </div>
-      </div>
+              />
+            </LocalizationProvider>
+          </div>
 
-      <div className="w-1/4">
-        <table className="border border-collapse border-slate-500">
-          <tbody>
-            <tr>
-              <th>Room Type:</th>
-              <td>{room?.roomType}</td>
-            </tr>
-            <tr>
-              <th>Price per night:</th>
-              <td>${room?.roomPrice}</td>
-            </tr>
-            <tr>
-              <th>Room Service:</th>
-              <td>
-                <ul>
-                  <li>
-                    <WifiIcon /> Wifi
-                  </li>
-                  <li>
-                    <TvIcon /> Netflix Premium
-                  </li>
-                  <li>
-                    <RestaurantIcon /> Breakfast
-                  </li>
-                  <li>
-                    <WineBarIcon /> Mini bar refreshment
-                  </li>
-                  <li>
-                    <DirectionsCarIcon /> Car Service
-                  </li>
-                  <li>
-                    <LocalParkingIcon /> Parking Space
-                  </li>
-                  <li>
-                    <LocalLaundryServiceIcon /> Laundry
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <div>
+            <TextField
+              label="Adults"
+              type="number"
+              name="adults"
+              value={bookingInfo.adults}
+              sx={{
+                width: "100%",
+                marginTop: "1rem",
+              }}
+              onChange={(e) => {
+                return onInfoChange(e.target.name, e.target.value);
+              }}
+            />
+
+            <TextField
+              label="Children"
+              type="number"
+              name="children"
+              value={bookingInfo.children}
+              sx={{
+                width: "100%",
+                marginTop: "1rem",
+              }}
+              onChange={(e) => {
+                return onInfoChange(e.target.name, e.target.value);
+              }}
+            />
+
+            <Button
+              variant="contained"
+              sx={{
+                width: "100%",
+                marginTop: "1rem",
+              }}
+              onClick={onContinue}
+            >
+              Continue
+            </Button>
+
+            <Modal
+              open={open}
+              onClose={onModalClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <div className="text-2xl font-semibold">
+                  Reservation Summary
+                </div>
+
+                <div className="mt-4">Name: {bookingInfo?.owner}</div>
+
+                <div className="mt-2">
+                  Check-in Date:{" "}
+                  {bookingInfo?.checkInDate?.format("DD/MM/YYYY")}
+                </div>
+                <div className="mt-2">
+                  Check-out Date:{" "}
+                  {bookingInfo.checkOutDate?.format("DD/MM/YYYY")}
+                </div>
+
+                <div className="mt-2">Numbers of dates booked: {2}</div>
+
+                <div className="mt-2">Number of guest</div>
+                <div className="mt-2">Adults: {bookingInfo?.adults}</div>
+                <div className="mt-2">Children: {bookingInfo?.children}</div>
+
+                <div className="mt-2">Total payment: ${200}</div>
+
+                <Button
+                  variant="contained"
+                  className="mr-4"
+                  sx={{
+                    marginTop: "1rem",
+                  }}
+                  onClick={confirmBooking}
+                >
+                  Confirm Booking and proceed to payment
+                </Button>
+              </Box>
+            </Modal>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <table className="border-collapse border border-slate-400 w-full">
+            <tbody>
+              <tr>
+                <th className="border border-slate-300 py-2 px-4">
+                  Room Type:
+                </th>
+                <td className="border border-slate-300 py-2 px-4">
+                  {room?.roomType}
+                </td>
+              </tr>
+              <tr>
+                <th className="border border-slate-300 py-2 px-4">
+                  Price per night:
+                </th>
+                <td className="border border-slate-300 py-2 px-4">
+                  ${room?.roomPrice}
+                </td>
+              </tr>
+              <tr>
+                <th className="border border-slate-300 py-2 px-4">
+                  Room Service:
+                </th>
+                <td className="border border-slate-300 py-2 px-4 text-start">
+                  <ul>
+                    <li>
+                      <WifiIcon /> Wifi
+                    </li>
+                    <li>
+                      <TvIcon /> Netflix Premium
+                    </li>
+                    <li>
+                      <RestaurantIcon /> Breakfast
+                    </li>
+                    <li>
+                      <WineBarIcon /> Mini bar refreshment
+                    </li>
+                    <li>
+                      <DirectionsCarIcon /> Car Service
+                    </li>
+                    <li>
+                      <LocalParkingIcon /> Parking Space
+                    </li>
+                    <li>
+                      <LocalLaundryServiceIcon /> Laundry
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

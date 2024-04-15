@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getAllRooms, getRoomTypes } from "../../api";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function RoomsBrowse() {
   const [roomTypes, setRoomTypes] = useState([]);
   const [chosenRoomType, setChosenRoomType] = useState("");
   const [rooms, setRooms] = useState([]);
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     getRoomTypes().then((types) => {
       setRoomTypes(types);
@@ -19,6 +20,10 @@ export default function RoomsBrowse() {
   }, []);
 
   function onFilter() {
+    if (chosenRoomType.length < 1) {
+      setFilteredRooms(rooms);
+      return;
+    }
     setFilteredRooms(
       rooms.filter(
         (room) =>
@@ -43,19 +48,30 @@ export default function RoomsBrowse() {
     ));
   }
 
+  function bookRoom(roomId) {
+    navigate(`/rooms/${roomId}/book`);
+  }
+
   function FilteredRoomItems() {
     return filteredRooms.map((room) => {
       return (
-        <div className="w-1/3 p-2">
+        <div
+          className="flex flex-row w-[45%] p-2 border-2 rounded-md mt-4 cursor-pointer"
+          onClick={() => bookRoom(room?.id)}
+        >
           <img
             src={`data:image;base64,${room.photo}`}
             alt="img"
-            className="w-1/3 mr-2"
+            className="w-[20%] mr-2 rounded-lg border"
           />
-          <div className="flex-1">
-            <div>{room.roomType}</div>
-            <div>{room.roomPrice} / night</div>
-            <Link to={`/rooms/${room?.id}/book`}>Book now</Link>
+          <div className="flex-1 pl-8 my-auto">
+            <div className="font-semibold text-primary text-xl">
+              {room.roomType}
+            </div>
+            <div className="text-lg font-thin text-yellow-500 tracking-[0.2rem]">
+              {room.roomPrice} / night
+            </div>
+            <div>Additional infomation goes here for the guests..</div>
           </div>
         </div>
       );
@@ -63,31 +79,57 @@ export default function RoomsBrowse() {
   }
 
   return (
-    <div className="flex items-center justify-center w-4/5">
-      <div>
+    <div className="flex flex-col w-4/5 min-h-[100vh] mx-auto below-navbar">
+      <div className="flex flex-row mt-8">
         <div>
           <select
             title="Room Type Select"
             name="roomType"
             value={chosenRoomType}
             onChange={onTypeChange}
-            className="w-full"
+            className="p-2 border-2 border-gray-300 rounded-[3px] h-10 w-[30vw]"
           >
-            <option value="">Select Room Type</option>
+            <option value="">Select Room Type For Filter...</option>
             <TypeOpts />
           </select>
         </div>
 
-        <Button variant="contained" className="mr-4" onClick={onFilter}>
-          Search
+        <Button
+          variant="contained"
+          sx={{
+            marginLeft: "3rem",
+            textTransform: "capitalize",
+            backgroundColor: "rgb(20 184 166)",
+            ":hover": {
+              backgroundColor: "rgb(20 184 166)",
+              opacity: "0.9",
+            },
+            width: "6vw",
+          }}
+          onClick={onFilter}
+        >
+          Filter
         </Button>
 
-        <Button variant="contained" className="mr-4" onClick={onClear}>
+        <Button
+          variant="contained"
+          sx={{
+            marginLeft: "1rem",
+            backgroundColor: "gray",
+            ":hover": {
+              backgroundColor: "gray",
+              opacity: "0.9",
+            },
+            textTransform: "capitalize",
+            width: "6vw",
+          }}
+          onClick={onClear}
+        >
           Clear
         </Button>
       </div>
 
-      <div className="flex flex-row flex-wrap w-full gap-2 j">
+      <div className="flex flex-wrap w-full justify-center items-center gap-8">
         <FilteredRoomItems />
       </div>
     </div>

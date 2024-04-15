@@ -34,11 +34,15 @@ export default function RoomsManagement() {
     return filteredRooms.map((room) => {
       return (
         <tr>
-          <td>{room?.id}</td>
-          <td>{room?.roomType}</td>
-          <td>{room?.roomPrice}</td>
-          <td>
-            <EditIcon onClick={() => editRoom(room)} />{" "}
+          <td className="border border-slate-300 py-2 px-4">{room?.id}</td>
+          <td className="border border-slate-300 py-2  px-4">
+            {room?.roomType}
+          </td>
+          <td className="border border-slate-300 py-2 px-4">
+            {room?.roomPrice}
+          </td>
+          <td className="border border-slate-300 py-2 px-4 text-center">
+            <EditIcon onClick={() => editRoom(room)} />
             <DeleteIcon onClick={() => removeRoom(room)} />
           </td>
         </tr>
@@ -72,29 +76,53 @@ export default function RoomsManagement() {
   }
 
   return (
-    <div className="w-4/5">
-      <div>Rooms Management</div>
+    <div className="w-4/5 mx-auto below-navbar pt-10 min-h-[100vh]">
+      <div className="text-3xl font-semibold">Rooms Management</div>
 
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center justify-between mt-8">
         <div>
-          <div>
-            <select
-              title="Room Type Select"
-              name="roomType"
-              value={chosenRoomType}
-              onChange={onTypeChange}
-              className="w-full"
-            >
-              <option value="">Select Room Type</option>
-              <TypeOpts />
-            </select>
-          </div>
+          <select
+            title="Room Type Select"
+            name="roomType"
+            value={chosenRoomType}
+            onChange={onTypeChange}
+            className="p-2 border-2 border-gray-300 rounded-[3px] h-10 w-[30vw]"
+          >
+            <option value="">Select Room Type For Filter...</option>
+            <TypeOpts />
+          </select>
 
-          <Button variant="contained" className="mr-4" onClick={onFilter}>
-            Search
+          <Button
+            variant="contained"
+            sx={{
+              marginLeft: "3rem",
+              textTransform: "capitalize",
+              backgroundColor: "rgb(20 184 166)",
+              ":hover": {
+                backgroundColor: "rgb(20 184 166)",
+                opacity: "0.9",
+              },
+              width: "6vw",
+            }}
+            onClick={onFilter}
+          >
+            Filter
           </Button>
 
-          <Button variant="contained" className="mr-4" onClick={onClear}>
+          <Button
+            variant="contained"
+            sx={{
+              marginLeft: "1rem",
+              backgroundColor: "gray",
+              ":hover": {
+                backgroundColor: "gray",
+                opacity: "0.9",
+              },
+              textTransform: "capitalize",
+              width: "6vw",
+            }}
+            onClick={onClear}
+          >
             Clear
           </Button>
         </div>
@@ -104,13 +132,13 @@ export default function RoomsManagement() {
         </Link>
       </div>
 
-      <table>
+      <table className="border-collapse border border-slate-400 w-full mt-8">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Room Type</th>
-            <th>Room Price</th>
-            <th>Actions</th>
+            <th className="border border-slate-300">ID</th>
+            <th className="border border-slate-300">Room Type</th>
+            <th className="border border-slate-300">Room Price</th>
+            <th className="border border-slate-300">Actions</th>
           </tr>
         </thead>
 

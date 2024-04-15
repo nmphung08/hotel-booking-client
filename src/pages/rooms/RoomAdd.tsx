@@ -61,16 +61,16 @@ export default function RoomAdd() {
   }
 
   return (
-    <div>
-      <div>Add a new room</div>
+    <div className="below-navbar pt-8 min-h-[100vh] w-[40%] mx-auto">
+      <div className="text-3xl font-bold">Add a new room</div>
 
-      <div>
+      <div className="mt-8">
         <select
           title="Room Type Select"
           name="roomType"
           value={roomProps.roomType}
           onChange={onPropsChange}
-          className="w-full"
+          className="p-2 border-2 border-gray-300 rounded-[3px] h-14 w-full"
         >
           <option value="">Select Room Type</option>
           <option value="Add new">Add new</option>
@@ -79,18 +79,25 @@ export default function RoomAdd() {
       </div>
 
       {isNewTypeDisplay && (
-        <>
+        <div className="flex flex-row w-full mt-4">
           <input
             type="text"
             title="Add new room type"
             value={newRoomType}
             onChange={onTypeInput}
+            className="h-14 p-2 border-2 border-gray-300 rounded-[3px] flex-1 mr-4"
           />
 
-          <Button variant="contained" className="mr-4" onClick={addNewType}>
+          <Button
+            variant="contained"
+            onClick={addNewType}
+            sx={{
+              width: "10%",
+            }}
+          >
             Add
           </Button>
-        </>
+        </div>
       )}
 
       <TextField
@@ -99,18 +106,30 @@ export default function RoomAdd() {
         name="roomPrice"
         value={roomProps.roomPrice}
         onChange={onPropsChange}
+        sx={{
+          marginTop: "1rem",
+          width: "100%",
+        }}
       />
 
       <input
         title="photo"
         type="file"
         onChange={onPhotoChange}
-        className="block"
+        className="block rounded-[3px] mt-4 w-full"
       />
 
-      {reviewImg && <img src={reviewImg} alt="Room Image" className="block" />}
+      {reviewImg && (
+        <img src={reviewImg} alt="Room Image" className="block mt-4" />
+      )}
 
-      <Button variant="contained" className="block mr-4" onClick={onRoomCreate}>
+      <Button
+        variant="contained"
+        sx={{
+          marginTop: "1rem",
+        }}
+        onClick={onRoomCreate}
+      >
         Create Room
       </Button>
     </div>

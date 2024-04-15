@@ -2,11 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+.below-navbar {
+  margin-top: 4rem;
+}
+
+/* 
+
+=================[ CAROUSEL ]=================
+
+*/
+
+.carousel {
+  background-image: url("./assets/images/services-1.jpg");
+  position: relative;
+  background-size: 100% 100%;
+  height: 80vh;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 
+
+=================[ PARALLAX ]=================
+
+*/
+
 .parallax {
-  background-image: url("");
+  background-image: url("./assets/images/parrallax.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: 100% 100%;
   height: 50vh;
+  width: 80vw;
+  margin: auto;
+  margin-top: 4rem;
+  position: relative;
 }

@@ -33,14 +33,18 @@ export default function RoomEdit() {
   }
 
   return (
-    <div>
-      <div>Edit room</div>
+    <div className="below-navbar pt-8 w-[40%] min-h-[100vh] mx-auto">
+      <div className="text-3xl font-bold">Edit room</div>
 
       <TextField
         label="Room Type"
         type="text"
         name="roomType"
         value={roomProps.roomType}
+        sx={{
+          marginTop: "2rem",
+          width: "100%",
+        }}
         onChange={(e) => onPropsChange("roomType", e.target.value)}
       />
 
@@ -49,14 +53,18 @@ export default function RoomEdit() {
         type="number"
         name="roomPrice"
         value={roomProps.roomPrice}
+        sx={{
+          marginTop: "1rem",
+          width: "100%",
+        }}
         onChange={(e) => onPropsChange("roomPrice", e.target.value)}
       />
 
-      <TextField
-        label="Room Photo"
+      <input
+        title="photo"
         type="file"
-        name="photo"
         onChange={(e) => onPropsChange("photo", e.target?.["files"][0])}
+        className="block rounded-[3px] mt-4 w-full"
       />
 
       {roomProps?.photo && (
@@ -67,10 +75,17 @@ export default function RoomEdit() {
               : `data:image;base64,${roomProps?.photo}`
           }
           alt="Room Image"
+          className="mt-4"
         />
       )}
 
-      <Button variant="contained" className="mr-4" onClick={editRoom}>
+      <Button
+        variant="contained"
+        sx={{
+          marginTop: "1rem",
+        }}
+        onClick={editRoom}
+      >
         Edit ROom
       </Button>
     </div>

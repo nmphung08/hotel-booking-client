@@ -18,38 +18,47 @@ export default function Register() {
     if (register?.username?.length < 1 || register?.password?.length < 1) {
       return;
     }
-    registerUser(register).then((res) => {
-      console.log(res);
-    });
+    registerUser(register).then();
   }
 
   return (
-    <div>
-      <div>Register</div>
+    <div className="below-navbar pt-8 mx-auto w-[60%] min-h-[100vh]">
+      <div className="w-full text-center text-3xl font-semibold">Register</div>
 
-      <TextField
-        label="Username"
-        name="username"
-        type="text"
-        value={register?.username}
-        onChange={onInputChange}
-      />
+      <div className="mt-8 flex flex-row justify-between">
+        <TextField
+          label="Username"
+          type="text"
+          name="username"
+          value={register?.username}
+          sx={{
+            width: "49%",
+          }}
+          onChange={onInputChange}
+        />
 
-      <TextField
-        label="Password"
-        name="password"
-        type="password"
-        value={register?.password}
-        onChange={onInputChange}
-      />
+        <TextField
+          label="Password"
+          type="password"
+          name="password"
+          value={register?.password}
+          sx={{
+            width: "49%",
+          }}
+          onChange={onInputChange}
+        />
+      </div>
 
-      <div>
-        <Button variant="contained" className="mr-4" onClick={onRegister}>
+      <div className="flex flex-row mt-4 items-center">
+        <Button variant="contained" onClick={onRegister}>
           Register
         </Button>
 
-        <div>
-          Already has a account? <Link to={"/login"}>Login</Link>
+        <div className="ml-4">
+          Already has a account?{"     "}
+          <Link to={"/login"} className="text-blue-500">
+            Login
+          </Link>
         </div>
       </div>
     </div>

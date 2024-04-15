@@ -30,32 +30,43 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <div>Login</div>
+    <div className="below-navbar pt-8 mx-auto w-[60%] min-h-[100vh]">
+      <div className="w-full text-center text-3xl font-semibold">Login</div>
 
-      <TextField
-        label="Username"
-        type="text"
-        name="username"
-        value={login.username}
-        onChange={onFieldChange}
-      />
+      <div className="mt-8 flex flex-row justify-between">
+        <TextField
+          label="Username"
+          type="text"
+          name="username"
+          value={login.username}
+          sx={{
+            width: "49%",
+          }}
+          onChange={onFieldChange}
+        />
 
-      <TextField
-        label="Password"
-        type="password"
-        name="password"
-        value={login.password}
-        onChange={onFieldChange}
-      />
+        <TextField
+          label="Password"
+          type="password"
+          name="password"
+          value={login.password}
+          onChange={onFieldChange}
+          sx={{
+            width: "49%",
+          }}
+        />
+      </div>
 
-      <div>
-        <Button variant="contained" className="mr-4" onClick={onLogin}>
+      <div className="flex flex-row mt-4 items-center">
+        <Button variant="contained" onClick={onLogin}>
           Login
         </Button>
 
-        <div>
-          Haven't have an account yet? <Link to={"/register"}>Register</Link>
+        <div className="ml-4">
+          Haven't have an account yet?{"     "}
+          <Link to={"/register"} className="text-blue-500">
+            Register
+          </Link>
         </div>
       </div>
     </div>
